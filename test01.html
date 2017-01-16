@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>價目表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h2>This is a heading</h2>
+    <p id="addr"></p>
+
+    <select onchange="myFunction(this.value)">
+            <option value="val1">科博館</option>
+            <option value="val2">市政府</option>
+            <option value="val3">新光三越</option>
+    </select>
+    <hr>
+    <script>
+        function myFunction(value) {
+            var x = "";
+            switch (value) {
+                case "val1":
+                    x = "<h3>科博館</h3><br>門市地址:台中市北區館前路1號<br>門市電話:04-2322-6940<br>營業時間:11:00~06:00";
+                    break;
+                case "val2":
+                    x = "<h3>市政府</h3><br>門市地址:台中市西屯區台灣大道三段99號<br>門市電話:04-2228-9111<br>營業時間:11:00~06:00";
+                    break;
+                case "val3":
+                    x = "<h3>新光三越</h3><br>門市地址:台中市西屯區台灣大道三段301號<br>門市電話:04-2255-3333<br>營業時間:11:00~06:00";
+                    break;
+            }
+            document.getElementById("addr").innerHTML = x;
+        }
+    </script>
+
+</body>
+
+</html>

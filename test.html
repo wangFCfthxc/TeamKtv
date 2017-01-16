@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<select id="mySelect" onchange="myFunction(this.value)">
+<option value="Audi">Audi
+<option value="BMW">BMW
+<option value="Mercedes">Mercedes
+<option value="Volvo">Volvo
+</select>
+<p id="demo"></p>
+<script>
+function myFunction(value) {
+var x ="";
+switch(value){
+case "Audi": x = "fast" ; break;
+case "BMW": x = "Very Very fast<br>HAHA" ; break;
+case "Mercedes": x = "a little fast" ; break;
+case "Volvo": x = "slow" ; break;
+}
+
+document.getElementById("demo").innerHTML = "You selected: " + value + " " + x;
+}
+</script>
+
+<input type="text" name=""/>
+</body>
+</html>
