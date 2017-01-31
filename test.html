@@ -1,31 +1,205 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<select id="mySelect" onchange="myFunction(this.value)">
-<option value="Audi">Audi
-<option value="BMW">BMW
-<option value="Mercedes">Mercedes
-<option value="Volvo">Volvo
-</select>
-<p id="demo"></p>
-<script>
-function myFunction(value) {
-var x ="";
-switch(value){
-case "Audi": x = "fast" ; break;
-case "BMW": x = "Very Very fast<br>HAHA" ; break;
-case "Mercedes": x = "a little fast" ; break;
-case "Volvo": x = "slow" ; break;
-}
+    <head>
+        <meta charset="UTF-8">
+        <title>會員註冊</title>
+    
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="js/jquery-birthday-picker.min.js"></script>
+<!--<script src='https://www.google.com/recaptcha/api.js'></script>-->
 
-document.getElementById("demo").innerHTML = "You selected: " + value + " " + x;
-}
+<script type="text/javascript">
+        var onSubmit = function(token) {
+          console.log('success!');
+        };
+        var onloadCallback = function() {
+          grecaptcha.render('submit', {
+            'sitekey' : '6LcRaBIUAAAAADs5fEVNtqc5durV3eTZQJbMIfGr',
+            'callback' : onSubmit
+          });
+        };
 </script>
 
-<input type="text" name=""/>
+
+    <style>
+        fieldset {
+            float:left;
+            display: block;
+            -webkit-margin-start: 2px;
+            -webkit-margin-end: 2px;
+            -webkit-padding-before: 0em;
+            -webkit-padding-start: 0em;
+            -webkit-padding-end: 0em;
+            -webkit-padding-after: 0em;
+            min-width: -webkit-min-content;
+            border-width: 2px;
+            border-style: none;
+        }
+    </style>
+</head>
+    
+<body>
+    <!--FB登入-->
+    <script>
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    if (response.status === 'connected') {
+      var accessToken = response.authResponse.accessToken;
+      testAPI();
+    } else if (response.status === 'not_authorized') {
+      document.getElementById('status').innerHTML = '請登錄此應用程式.';
+    } else {
+      document.getElementById('status').innerHTML = '請登入臉書.';
+    }
+  }
+
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+  }
+
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '815543765252009',
+    cookie     : true,  // enable cookies to allow the server to access 
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.8' // use graph api version 2.8
+  });
+
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+    
+  });
+
+  };
+  
+
+  // Load the SDK asynchronously
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/zh_TW/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+
+  function testAPI() {
+    console.log('歡迎！ 正在獲取您的資訊.... ');
+    FB.api('/me','get',{fields:'name,gender,email,birthday'},
+    function(response) {
+      console.log('取得用戶名稱: ' + response.name);
+      // alert();//測試取得內容
+      
+      document.getElementById('status').innerHTML =
+        '感謝您的登入, ' + response.name + (response.gender=='male'?'先生':'小姐' )
+        + '!'+'<br>' + '用戶編號:' + response.id +'<br>' 
+        +'(信箱:' + response.email + ')' + '<br>'
+        +'生日:'+ response.birthday
+        
+    });
+    
+  }
+  
+</script>
+
+<fb:login-button scope="public_profile,email,gender,birthday" onlogin="checkLoginState()"
+   data-max-rows="1" data-size="large" data-show-faces="false" 
+   data-auto-logout-link="true" >
+</fb:login-button>
+
+<div id="status"></div>
+<!--FB登入_END-->
+
+<br>
+<form option=""  method='post' onsubmit="return phone(this)">
+<!--生日-->
+<a style="float:left">生日：</a>
+      <div id="demo"></div>
+      <br>
+      <font color="red">會員生日將享有優惠本店提供之折扣碼!</font>
+      <br>
+
+<script>
+// $("#demo").birthdayPicker(); 
+$("#demo").birthdayPicker({"defaultDate":"01-03-1980"});
+// alert(demo);
+</script>
+<!--生日_END-->
+
+<!--手機號碼-->
+手機號碼：<input type="text" id="phone" required />
+<br>
+<font color="red"></font>
+      <br><br>
+      
+<script>  
+	function phone(f) {  
+	    var str = f.phone.value; 
+	    var re = /^09\d{2}-\d{6}$/;  
+	    if (!re.test(str)) {  
+	        alert("手機號碼長度不足");  
+	        return false;  
+	    }     
+	    var arr = str.match([0-9]);  
+	    var str1 = parseInt(arr[0]) + "/" + parseInt(arr[1]) + "/" + parseInt(arr[2]);  
+	    var d = new Date(str1);  
+	    if (isNaN(d)){  
+	        alert("只能填數入數字"); 
+	        return false;  
+	    }  
+	    var str2 = 123;  
+	    if (str2 != str1) {  
+	        alert("錯誤");  
+	        return false;  
+	    } 
+	    return true;
+	  
+	}  
+</script> 
+      
+      
+<!--手機號碼_END-->
+
+<!--驗證碼-->
+
+<!--<button class="g-recaptcha" data-sitekey="6LcRaBIUAAAAADs5fEVNtqc5durV3eTZQJbMIfGr"-->
+<!--data-callback="YourOnSubmitFn">-->
+<!--提交-->
+<!--</button>-->
+
+<!--分隔線-->
+<div id="recaptcha_box"></div>
+<script>
+var onloadCallback = function() {
+grecaptcha.render("recaptcha_box", {
+"sitekey": "6LcRaBIUAAAAADs5fEVNtqc5durV3eTZQJbMIfGr",
+"callback": callback
+});
+};
+
+function callback() {
+/* 這裡可執行提交表單的動作 
+alert("恭喜你驗證成功");
+*/
+}
+</script>
+<!--分隔線2-->
+
+<!--<input id='submit' type="submit" value="送出" />-->
+<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+
+<br><br>
+
+<!--驗證碼_end-->
+<input type="submit" value="提交" />
+      
+</form>
+
+
 </body>
+
 </html>

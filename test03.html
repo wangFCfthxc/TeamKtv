@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+function validateForm() {
+    var x = document.getElementById('phone').value;
+    var y = document.getElementById('name').value;
+    var re = x.match(/^[09]{2}[0-9]{8}$/) ;
+    //利用match函數去比較手機是否符合指定條件：若不符合條件傳回null
+    // 手機檢查
+    if (x == "") {
+        alert("phone must be filled out");
+        return false;
+    }else if(re == null){
+        alert("請輸入ex:09xxxxxxxx");
+        return false;
+    }
+    // 名字檢查
+    if (y == "") {
+        alert("name must be filled out");
+        return false;
+    }
+    
+    
+}
+</script>
+</head>
+<body>
+
+<form name="myForm" action="demo_form.asp"
+onsubmit="return validateForm()" method="post">
+手機: <input type="text" id="phone" placeholder="ex:09...">
+<br>
+名字: <input type="text" id="name">
+<input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
